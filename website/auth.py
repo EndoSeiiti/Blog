@@ -17,6 +17,7 @@ def login():
               
         flash("Logged in!", category='success')
         login_user(user, remember=True)
+        
         return redirect("/")
    
     return render_template("login.html")
