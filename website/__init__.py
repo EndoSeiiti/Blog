@@ -28,7 +28,7 @@ def create_app():
 
   @login_manager.user_loader
   def load_user(id):
-    return User.query.get(init(id))
+    return User.query.get(int(id))
   
 
   return app
