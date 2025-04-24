@@ -9,16 +9,16 @@ def login():
         password = request.form.get("password")
 
         user = User.query.filter_by(email=email).first()
-        if user:
-            if check_password_hash(user.password, password):
-                flash("Logged in!", category='success')
-                login_user(user, remember=True)
-                return redirect("/")
-            else:
-                flash('Password is incorrect.', category='error')
-        else:
-            flash('Email does not exist.', category='error')
+        if not user:
+             flash('Email does not exist.', category='error')
 
+        if not check_password_hash(user.password, password):
+              flash('Password is incorrect.', category='error')
+              
+        flash("Logged in!", category='success')
+        login_user(user, remember=True)
+        return redirect("/")
+   
     return render_template("login.html")
 
 @auth.route("/sign-up", methods=['GET', 'POST'])
